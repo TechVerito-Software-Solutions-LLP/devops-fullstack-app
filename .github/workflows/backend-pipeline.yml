@@ -1,9 +1,9 @@
-name: Build and Deploy
+name: Build and Deploy backend
 
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   build-and-push:
@@ -20,13 +20,13 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t frontendapp -f fDockerfile .
+      run: docker build -t backendapp -f bDockerfile .
 
     - name: tag the docker image
-      run: docker tag frontendapp therafeeq/frontendapp:latest
+      run: docker tag backendapp therafeeq/backendapp:latest
 
     - name: Push Docker image
-      run: docker push therafeeq/frontendapp:latest
+      run: docker push therafeeq/backendapp:latest
 
     - name: SSH into EC2 instance and start Docker container
       uses: appleboy/ssh-action@master
@@ -36,7 +36,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         port: 22
         script: |
-          docker stop frontendapp || true
-          docker rm frontendapp || true
-          docker pull therafeeq/frontendapp:latest
-          docker run -d -p 3000:3000 --name frontendapp --network fullstack therafeeq/frontendapp
+          docker stop backendapp || true
+          docker rm backendapp || true
+          docker pull therafeeq/backendapp:latest
+          docker run -d -p 8080:8080 --name backendapp --network fullstack therafeeq/backendapp
