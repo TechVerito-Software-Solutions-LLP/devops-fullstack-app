@@ -10,7 +10,7 @@ COPY backend .
 # Build the Go application
 RUN go get ./...
 
-# Expose the port your backend server is listening on (assuming it's 8080)
+# Expose the port your backend server is listening on
 EXPOSE 8080
 
 # Command to start your backend server with the specified environment variables

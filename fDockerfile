@@ -11,7 +11,7 @@ COPY frontend .
 # Install dependencies
 RUN npm install
 
-# Expose the port your Node.js app is listening on (if applicable)
+# Expose the port your Node.js app is listening on
 EXPOSE 3000
 
 # Command to start your Node.js app
