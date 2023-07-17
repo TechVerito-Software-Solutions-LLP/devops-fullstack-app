@@ -23,7 +23,7 @@ jobs:
       run: docker build -t frontendapp -f fDockerfile .
 
     - name: Push Docker image
-      run: docker push frontendapp
+      run: docker push frontendapp therafeeq/fullstack:latest
 
     - name: SSH into EC2 instance and start Docker container
       uses: appleboy/ssh-action@master
