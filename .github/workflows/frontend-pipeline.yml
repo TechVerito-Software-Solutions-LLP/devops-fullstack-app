@@ -39,4 +39,4 @@ jobs:
           docker stop frontendapp || true
           docker rm frontendapp || true
           docker pull therafeeq/frontendapp:latest
-          docker run -d -p 3000:3000 --name frontendapp frontendapp
+          docker run -d -p 3000:3000 --name frontendapp therafeeq/frontendapp
