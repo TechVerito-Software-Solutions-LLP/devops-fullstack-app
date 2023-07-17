@@ -14,4 +14,4 @@ RUN go get ./...
 EXPOSE 8080
 
 # Command to start your backend server with the specified environment variables
-CMD ["sh", "-c", "DB_HOST=psql DB_USER=psqldbu DB_PASSWORD=password DB_NAME=psqldb DB_PORT=5432 ALLOWED_ORIGINS=$ALLOWED_ORIGINS go run main.go"]
+CMD ["sh", "-c", "DB_HOST=172.31.86.121 DB_USER=psqldbu DB_PASSWORD=superhardpassword DB_NAME=psqldb DB_PORT=5432 ALLOWED_ORIGINS=$ALLOWED_ORIGINS go run main.go"]
