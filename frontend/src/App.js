@@ -56,7 +56,7 @@ function App() {
                 justifyContent: "space-between",
                 padding: "1rem calc(100vh - 50rem)",
             }}>
-                <TextField id="standard-basic" label="Name" variant="standard" onChange={handleSetName}/>
+                <TextField id="standard-basic" label="Name.." variant="standard" onChange={handleSetName}/>
                 <TextField id="standard-number" label="Id"
                     type="number"
                     InputLabelProps={{
