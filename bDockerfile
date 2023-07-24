@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the backend code into the container
 COPY backend .
 
-# Build the Go application
+# Build the Go applicationn
 RUN go get ./...
 
 # Expose the port backend is listening on
