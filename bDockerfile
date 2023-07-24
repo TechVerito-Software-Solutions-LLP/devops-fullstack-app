@@ -1,0 +1,17 @@
+# Use the official Go 1.19 image as the base image
+FROM golang:1.19
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the backend code into the container
+COPY backend .
+
+# Build the Go application
+RUN go get ./...
+
+# Expose the port backend is listening on
+EXPOSE 8080
+
+# Command to start backend
+CMD ["sh", "-c", "DB_HOST=172.31.86.121 DB_USER=psqldbu DB_PASSWORD=superhardpassword DB_NAME=psqldb DB_PORT=5432 ALLOWED_ORIGINS=$ALLOWED_ORIGINS go run main.go"]
