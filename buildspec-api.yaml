@@ -7,21 +7,19 @@
       commands:
         - echo Logging in to Amazon ECR...
         - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 066747756520.dkr.ecr.ap-south-1.amazonaws.com
-        - BRANCH=$(git rev-parse HEAD | xargs git name-rev|cut -d' ' -f2 | sed 's/remotes\/origin\///g')
-        - echo $BRANCH
     build:
       commands:
        - echo Build started on `date`
        - cd backend
        - ls -l
        - echo Building the Docker image...          
-       - docker build -t go-app-backend -t go-app-backend:$CODEBUILD_BUILD_NUMBER .
-       - docker tag go-app-backend:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:latest
-       - docker tag go-app-backend:$CODEBUILD_BUILD_NUMBER 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:$CODEBUILD_BUILD_NUMBER
+       - docker build -t goapp-repo -t goapp-repo:$CODEBUILD_BUILD_NUMBER .
+       - docker tag goapp-repo:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:latest
+       - docker tag goapp-repo:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:latest
-       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:$CODEBUILD_BUILD_NUMBER
+       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:latest
+       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:$CODEBUILD_BUILD_NUMBER
  
