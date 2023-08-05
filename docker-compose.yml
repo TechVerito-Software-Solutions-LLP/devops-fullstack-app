@@ -2,7 +2,7 @@ version: '3.8'
 services:
   postgres:
     container_name: postgres_demo
-    image: postgres:latest
+    image: 066747756520.dkr.ecr.ap-south-1.amazonaws.com/postgres:13.9-alpine3.17
     environment:
       POSTGRES_USER: super_admin
       POSTGRES_PASSWORD: admin@123
@@ -13,7 +13,7 @@ services:
       - 5432
   api:
     container_name: go-app-backend
-    image: goapp-repo:latest
+    image: 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:latest
     depends_on:
       - postgres
     expose:
@@ -29,7 +29,7 @@ services:
       - "postgres"
   react:
     container_name: frontent_api
-    image: reactapp-repo:latest
+    image: 066747756520.dkr.ecr.ap-south-1.amazonaws.com/reactapp-repo:latest
     depends_on:
       - api
     ports:
