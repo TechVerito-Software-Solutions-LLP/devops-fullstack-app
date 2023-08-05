@@ -7,21 +7,19 @@
       commands:
         - echo Logging in to Amazon ECR...
         - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 066747756520.dkr.ecr.ap-south-1.amazonaws.com
-        - BRANCH=$(git rev-parse HEAD | xargs git name-rev|cut -d' ' -f2 | sed 's/remotes\/origin\///g')
-        - echo $BRANCH
     build:
       commands:
        - echo Build started on `date`
        - cd backend
        - ls -l
        - echo Building the Docker image...          
-       - docker build -t react-app-frontend -t react-app-frontend:$CODEBUILD_BUILD_NUMBER .
-       - docker tag react-app-frontend:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/react-app-frontend:latest
-       - docker tag react-app-frontend:$CODEBUILD_BUILD_NUMBER 066747756520.dkr.ecr.ap-south-1.amazonaws.com/react-app-frontend:$CODEBUILD_BUILD_NUMBER
+       - docker build -t reactapp-repo -t reactapp-repo:$CODEBUILD_BUILD_NUMBER .
+       - docker tag reactapp-repo:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/reactapp-repo:latest
+       - docker tag reactapp-repo:$CODEBUILD_BUILD_NUMBER 066747756520.dkr.ecr.ap-south-1.amazonaws.com/reactapp-repo:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/react-app-frontend:latest
-       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/react-app-frontend:$CODEBUILD_BUILD_NUMBER
+       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/reactapp-repo:latest
+       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/reactapp-repo:$CODEBUILD_BUILD_NUMBER
  
