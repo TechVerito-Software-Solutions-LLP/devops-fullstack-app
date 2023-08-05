@@ -6,7 +6,7 @@
     pre_build:
       commands:
         - echo Logging in to Amazon ECR...
-        - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 066747756520.dkr.ecr.ap-south-1.amazonaws.com
+        - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ecr_repo_api
     build:
       commands:
        - echo Build started on `date`
@@ -14,12 +14,16 @@
        - ls -l
        - echo Building the Docker image...          
        - docker build -t goapp-repo -t goapp-repo:$CODEBUILD_BUILD_NUMBER .
-       - docker tag goapp-repo:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:latest
-       - docker tag goapp-repo:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:$CODEBUILD_BUILD_NUMBER
+       - docker tag goapp-repo:latest $ecr_repo_api/goapp-repo:latest
+       - docker tag goapp-repo:latest $ecr_repo_api/goapp-repo:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:latest
-       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:$CODEBUILD_BUILD_NUMBER
+       - docker push $ecr_repo_api/goapp-repo:latest
+       - docker push $ecr_repo_api/goapp-repo:$CODEBUILD_BUILD_NUMBER
+    artifacts:
+      files:
+        - '*'
+        - '**/*'
  
