@@ -18,6 +18,6 @@ docker pull "${UI_ECR_REPOSITORY_URI}:${IMAGE_TAG}"
 #Run the docker-compose
 ls -l
 pwd
-#cd /app
+cd /home/app
 docker-compose  up -d
 

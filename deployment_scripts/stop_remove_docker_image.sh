@@ -11,7 +11,7 @@
 # stop the docker compose
 ls -l
 pwd
-#cd /app
+cd /home/app
 docker-compose  down --rmi all
 
 # Pull the Docker image from ECR

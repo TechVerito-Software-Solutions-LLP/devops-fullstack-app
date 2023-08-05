@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   -  source: /
-     destination: /app
+     destination: /home/app
 hooks:
   BeforeInstall:
     - location: deployment_scripts/stop_remove_docker_image.sh
