@@ -16,8 +16,8 @@ services:
     image: 066747756520.dkr.ecr.ap-south-1.amazonaws.com/goapp-repo:latest
     depends_on:
       - postgres
-    expose:
-      - 8080
+    ports:
+      - 8080:8080
     environment:
       - DB_HOST=postgres
       - DB_USER=super_admin
