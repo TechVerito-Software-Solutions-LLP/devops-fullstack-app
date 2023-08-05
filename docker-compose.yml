@@ -19,12 +19,12 @@ services:
     expose:
       - 8080
     environment:
-      - DB_HOST=172.18.0.2
+      - DB_HOST=postgres
       - DB_USER=super_admin
       - DB_PASSWORD=admin@123
       - DB_NAME=postgres
       - DB_PORT=5432
-      - ALLOWED_ORIGINS=http://localhost:3000
+      - ALLOWED_ORIGINS=http://ec2-13-234-118-210.ap-south-1.compute.amazonaws.com/:3000
     links:
       - "postgres"
   react:
@@ -36,8 +36,6 @@ services:
       - 3000:3000
     links:
       - "api"
-  
-
 volumes:
   postgres-db:
     driver: local
