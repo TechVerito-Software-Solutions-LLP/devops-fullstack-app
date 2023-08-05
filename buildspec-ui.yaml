@@ -10,7 +10,7 @@
     build:
       commands:
        - echo Build started on `date`
-       - cd backend
+       - cd frontend
        - ls -l
        - echo Building the Docker image...          
        - docker build -t reactapp-repo -t reactapp-repo:$CODEBUILD_BUILD_NUMBER .
