@@ -17,5 +17,6 @@ docker pull "${UI_ECR_REPOSITORY_URI}:${IMAGE_TAG}"
 
 #Run the docker-compose
 ls -l
+pwd
 docker-compose -f ./docker-compose.yml up -d
 
