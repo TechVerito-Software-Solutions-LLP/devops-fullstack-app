@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
-# files:
-#   -  source: deployment_scripts
-#      destination: /root/
+files:
+  -  source: /
+     destination: /root/
 hooks:
   BeforeInstall:
     - location: deployment_scripts/stop_remove_docker_image.sh
