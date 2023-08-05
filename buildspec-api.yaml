@@ -1,0 +1,27 @@
+ version: 0.2
+ phases:
+    install:
+      conmmands:
+        - echo Entered the Installation phase
+    pre_build:
+      conmmands:
+        - echo Logging in to Amazon ECR...
+        - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 066747756520.dkr.ecr.ap-south-1.amazonaws.com
+        - BRANCH=$(git rev-parse HEAD | xargs git name-rev|cut -d' ' -f2 | sed 's/remotes\/origin\///g')
+        - echo $BRANCH
+    build:
+      conmmands:
+       - echo Build started on `date`
+       - cd backend
+       - ls -l
+       - echo Building the Docker image...          
+       - docker build -t go-app-backend -t go-app-backend:$CODEBUILD_BUILD_NUMBER .
+       - docker tag go-app-backend:latest 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:latest
+       - docker tag go-app-backend:$CODEBUILD_BUILD_NUMBER 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:$CODEBUILD_BUILD_NUMBER
+    post_build:
+      conmmands:
+       - echo Build completed on `date`
+       - echo Pushing the Docker image...
+       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:latest
+       - docker push 066747756520.dkr.ecr.ap-south-1.amazonaws.com/go-app-backend:$CODEBUILD_BUILD_NUMBER
+ 
