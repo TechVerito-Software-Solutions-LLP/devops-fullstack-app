@@ -22,8 +22,8 @@
        - echo Pushing the Docker image...
        - docker push $ecr_repo_api/goapp-repo:latest
        - docker push $ecr_repo_api/goapp-repo:$CODEBUILD_BUILD_NUMBER
-    artifacts:
-      files:
-        - '*'
-        - '**/*'
+ artifacts:
+   files:
+     - '*'
+     - '**/*'
  
