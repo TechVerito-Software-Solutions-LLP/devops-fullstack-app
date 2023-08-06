@@ -24,7 +24,7 @@ services:
       - DB_PASSWORD=admin@123
       - DB_NAME=postgres
       - DB_PORT=5432
-      - ALLOWED_ORIGINS=react
+      - ALLOWED_ORIGINS=proxy
     links:
       - "postgres"
   react:
