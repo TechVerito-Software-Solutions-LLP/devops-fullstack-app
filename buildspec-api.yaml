@@ -13,15 +13,21 @@
        - cd backend
        - ls -l
        - echo Building the Docker image...          
-       - docker build -t goapp-repo -t goapp-repo:$CODEBUILD_BUILD_NUMBER .
-       - docker tag goapp-repo:latest $ecr_repo_api/goapp-repo:latest
-       - docker tag goapp-repo:latest $ecr_repo_api/goapp-repo:$CODEBUILD_BUILD_NUMBER
+       - docker build -t $ecr_repo_name -t $ecr_repo_name:$CODEBUILD_BUILD_NUMBER .
+       - docker tag $ecr_repo_name:latest $ecr_repo_api/$ecr_repo_name:latest
+       - docker tag $ecr_repo_name:latest $ecr_repo_api/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push $ecr_repo_api/goapp-repo:latest
-       - docker push $ecr_repo_api/goapp-repo:$CODEBUILD_BUILD_NUMBER
+       - docker push $ecr_repo_api/$ecr_repo_name:latest
+       - docker push $ecr_repo_api/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
+       - cd ..
+       - sed -i "s|<repo url>|$ecr_repo_api|g" docker-compose.yml
+       - sed -i "s|<repo name>|$ecr_repo_name|g" docker-compose.yml
+       - sed -i "s|<repo name ui>|$ecr_ui_repo_name|g" docker-compose.yml
+       - cd proxy
+       - sed -i "s|<Instance url>|$instance_url|g" nginx.yaml
  artifacts:
    files:
      - '*'

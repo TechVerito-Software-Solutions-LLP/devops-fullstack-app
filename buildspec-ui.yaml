@@ -7,19 +7,20 @@
       commands:
         - echo Logging in to Amazon ECR...
         - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ecr_repo_ui
+        - sed -i "s|<Instance url>|$instance_url|g" .env
     build:
       commands:
        - echo Build started on `date`
        - cd frontend
        - ls -l
        - echo Building the Docker image...          
-       - docker build -t reactapp-repo -t reactapp-repo:$CODEBUILD_BUILD_NUMBER .
-       - docker tag reactapp-repo:latest $ecr_repo_ui/reactapp-repo:latest
-       - docker tag reactapp-repo:$CODEBUILD_BUILD_NUMBER $ecr_repo_ui/reactapp-repo:$CODEBUILD_BUILD_NUMBER
+       - docker build -t $ecr_repo_name -t $ecr_repo_name:$CODEBUILD_BUILD_NUMBER .
+       - docker tag $ecr_repo_name:latest $ecr_repo_ui/$ecr_repo_name:latest
+       - docker tag $ecr_repo_name:$CODEBUILD_BUILD_NUMBER $ecr_repo_ui/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push $ecr_repo_ui/reactapp-repo:latest
-       - docker push $ecr_repo_ui/reactapp-repo:$CODEBUILD_BUILD_NUMBER
+       - docker push $ecr_repo_ui/$ecr_repo_name:latest
+       - docker push $ecr_repo_ui/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
  
