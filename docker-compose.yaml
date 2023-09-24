@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  frontend:
+    container_name: reactJS-app
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile_front
+    ports:
+    - "3000:3000"
+    depends_on:
+    - backend
+  backend:
+    container_name: go-app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile_back
+    environment:
+      DATABASE_URL: "dbHost=3.83.238.134 dbUser=postgres dbPassword=postgres dbName=postgres dbPort=5432 sslmode=disable"
+      POSTGRES_HOST: "3.83.238.134"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_NAME: postgres
+      POSTGRES_PORT: 5432
+    ports:
+    - "8080:8080"
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    depends_on:
+    - go_db
+  go_db:
+    container_name: go_db
+    image: postgres:12
+    environment:
+      POSTGRES_HOST: "3.83.238.134"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_NAME: postgres
+      POSTGRES_PORT: 5432
+    ports:
+    - "5432:5432"
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
